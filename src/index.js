@@ -12,8 +12,8 @@ app.use(express.json())
 
 app.get("/", (request, response) => {
     const selectCommand = `
-    SELECT name, email, age, nickname
-    FROM nomedatabela
+    SELECT name, email, age, nickname, password
+    FROM gabrielscuoteguazzaportilho_02ta
 `
 
     database.query(selectCommand, (error, users) => {
@@ -31,8 +31,8 @@ app.post("/cadastrar", (request, response) => {
     const {name, email, age, nickname, password } = request.body.user
 
     const insertComand = `
-        INSERT INTO nomedatabela(nome, email, age, nickname, passoward)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO gabrielscuoteguazzaportilho_02ta(name, email, age, nickname, password)
+        VALUES (?, ?, ?, ?, ?)
     `
 
     database.query(insertComand, [name, email, age, nickname, password], (error) => {
