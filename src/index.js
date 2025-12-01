@@ -45,6 +45,28 @@ app.post("/cadastrar", (request, response) => {
     response.status(201).json({ message: "Usuário cadastrado com sucesso" })
 })
 
+app.post("/login", (resquest, response) => {
+    const { email, password } = resquest.body.user
+
+    const selectCommand = "SELECT * FROM gabrielscuoteguazzaportilho_02ta WHERE email = ? "
+
+    database.query(selectCommand, [email], (error, user) => {
+        if(error) {
+            console.log(error)
+            return
+        }
+
+        if (user.length ===  0 || user[0].password !== password) {
+            response.json({ message: "Usuário ou senha incorretos!" })
+            return
+        }
+
+        response.json({
+            id: user[0].id,
+            name: user[0].name
+        })
+    })
+})
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}!`)
